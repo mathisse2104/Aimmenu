@@ -14,11 +14,11 @@ RegisterCommand('aimmenu', function()
         { label = 'Hillbilly', value = 'hillbilly' }
     }
 
-    local input = lib.inputDialog('Kies Aim Stijl', {
+    local input = lib.inputDialog('Choose a aim style.', {
         {
             type = 'select',
             label = 'Aim Style',
-            description = 'Choose what your new aim style is',
+            description = 'Choose what your new aimstyle is',
             options = options,
             required = true,
             default = 'default'
@@ -30,7 +30,7 @@ RegisterCommand('aimmenu', function()
         ExecuteCommand("aim " .. selectedAnim)
 
         lib.notify({
-            title = 'You have adjusted your aim',
+            title = 'You have adjusted your aimstyle',
             description = 'New aim style: ' .. selectedAnim,
             type = 'success'
         })

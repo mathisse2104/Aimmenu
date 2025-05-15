@@ -1,4 +1,4 @@
-author "Mathisse"
+author "Mathisse - 55 Development"
 description "Weapon animation system"
 version "1.0.0"
 

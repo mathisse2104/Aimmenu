@@ -20,10 +20,10 @@ info.animations = {
 info.default = "gang"
 
 -- weapon groups can be found here: https://docs.fivem.net/natives/?_0xC3287EE3050FB74C
-info.weaponGroups = {
-    [`GROUP_MELEE`] = "mele",
-    [`GROUP_PISTOL`] = "gang",
-}
+info.weaponGroups = {}
+info.weapons = {}
+info.clothing = {}
+info.default = false
 
 -- If you add a weapon here it will ignore the animation on it's group and instead play a specific animation set here.
 info.weapons = {
