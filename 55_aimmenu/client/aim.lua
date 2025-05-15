@@ -6,7 +6,7 @@ local animations = {
     hillbilly = `Hillbilly`
 }
 
--- Zet aim animatie
+-- Set aim animation
 local function setAimAnim(anim)
     if type(anim) ~= "string" then return end
     anim = anim:lower()
@@ -14,14 +14,14 @@ local function setAimAnim(anim)
     LocalPlayer.state:set("weaponAnimOverride", anim, true)
 end
 
--- Toepassen animaties op anderen via statebag
+-- Apply animations to others via statebag
 AddStateBagChangeHandler("weaponAnimOverride", nil, function(bagName, key, value, reserved, replicated)
     local ply = GetPlayerFromStateBagName(bagName)
     if ply == 0 or replicated or not value then return end
     SetWeaponAnimationOverride(GetPlayerPed(ply), animations[value] or `Default`)
 end)
 
--- Toepassen op je eigen ped na cache
+-- Apply to your own ped after cache
 lib.onCache("ped", function()
     local anim = LocalPlayer.state.weaponAnimOverride
     if anim then
@@ -29,7 +29,7 @@ lib.onCache("ped", function()
     end
 end)
 
--- /aim command registreren
+-- /aim command register
 if DATA_AIM.command then
     RegisterCommand(DATA_AIM.command, function(source, args)
         if not args[1] then
@@ -48,7 +48,7 @@ if DATA_AIM.command then
     })
 end
 
--- Start animatie instellen indien nodig
+-- Set start animation if needed
 if DATA_AIM.default then
     setAimAnim(DATA_AIM.default)
 end
@@ -59,10 +59,10 @@ exports("getAimAnim", function()
     return LocalPlayer.state.weaponAnimOverride or "default"
 end)
 
--- Standaard: custom aim anims UIT
+-- Default: custom aim anims OFF
 LocalPlayer.state:set("useCustomAimAnims", false, true)
 
--- Crosshair altijd verbergen
+-- Always hide crosshair
 CreateThread(function()
     while true do
         Wait(0)
@@ -70,7 +70,7 @@ CreateThread(function()
     end
 end)
 
--- Camera handling thread
+--Camera handling thread
 local aiming = false
 
 CreateThread(function()
@@ -81,12 +81,12 @@ CreateThread(function()
         local aimPressed = IsControlPressed(0, 25)
 
         if LocalPlayer.state.useCustomAimAnims then
-            -- CUSTOM AAN = ANIMATIES ACTIEF, ALTIJD THIRD PERSON
+-- CUSTOM ON = ANIMATIONS ACTIVE, ALWAYS THIRD PERSON
             if isAiming and GetFollowPedCamViewMode() == 4 then
                 SetFollowPedCamViewMode(1)
             end
         else
-            -- CUSTOM UIT = STANDAARD ANIMATIE, LOCK OP FIRST PERSON
+-- CUSTOM OFF = STANDARD ANIMATION, LOCK ON FIRST PERSON
             if aimPressed then
                 if GetFollowPedCamViewMode() ~= 4 then
                     SetFollowPedCamViewMode(4)
